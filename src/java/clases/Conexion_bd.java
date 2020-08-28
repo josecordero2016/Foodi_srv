@@ -44,12 +44,27 @@ public class Conexion_bd {
         try {
             str = this.connection.createStatement();
             ResultSet res = str.executeQuery(sentencia);  // Ejecuta la linea de c.
-            
+
             return res;
         } catch (SQLException e) {
             estado = "Error " + e;
         }
         return null;
+    }
+
+    public String consultar_string(String sentencia) {
+        try {
+            str = this.connection.createStatement();
+            ResultSet res = str.executeQuery(sentencia);  // Ejecuta la linea de c.
+            String resultado = "";
+            while (res.next()) {
+                resultado = res.getString(1);
+            }
+            return resultado;
+        } catch (SQLException e) {
+            estado = "Error " + e;
+        }
+        return estado;
     }
 
     public boolean ejecutar(String sentencia) {
@@ -76,7 +91,7 @@ public class Conexion_bd {
                 resultSet = statement.executeQuery(sentencia);
                 ResultSetMetaData md = resultSet.getMetaData();
                 int columns = md.getColumnCount();
-                 results = new ArrayList();
+                results = new ArrayList();
 
                 while (resultSet.next()) {
                     HashMap row = new HashMap();
@@ -88,14 +103,13 @@ public class Conexion_bd {
                 }
             } catch (SQLException exp) {
                 System.out.println("Error: " + exp);
-                results=null;
+                results = null;
             }
         }
         return results;
     }
-    
-    public void cerrarConexion()
-    {
+
+    public void cerrarConexion() {
         try {
             connection.close();
         } catch (SQLException ex) {
