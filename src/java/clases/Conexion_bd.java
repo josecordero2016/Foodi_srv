@@ -2,6 +2,7 @@ package clases;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
 
 public class Conexion_bd {
 
-    private Connection connection;
+    public Connection connection;
     private boolean okConnection;
     private String ok;
     private ResultSet rs = null;
@@ -66,6 +67,18 @@ public class Conexion_bd {
         }
         return estado;
     }
+    
+    public void ejecutarPs(PreparedStatement ps){
+        try {
+            str = this.connection.createStatement();
+            ps.executeUpdate();
+            ps.close();
+        }
+        catch (Exception e){
+            estado = "Error "+e;
+        }
+    }
+    
 
     public boolean ejecutar(String sentencia) {
         try {

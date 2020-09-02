@@ -43,6 +43,7 @@ public class ApplicationConfig extends Application {
         resources.add(Javarest.service.PersonaFacadeREST.class);
         resources.add(Javarest.service.ProductoFacadeREST.class);
         resources.add(Javarest.service.ProductoFinalFacadeREST.class);
+        resources.add(Javarest.service.PruebaFacadeREST.class);
         resources.add(Javarest.service.TipoProductoFacadeREST.class);
         resources.add(Javarest.service.UsuarioFacadeREST.class);
     }
