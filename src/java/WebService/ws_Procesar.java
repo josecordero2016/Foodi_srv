@@ -6,6 +6,7 @@
 package WebService;
 
 import clases.Conexion_bd;
+import com.sun.rowset.WebRowSetImpl;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.sql.*;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.sql.rowset.WebRowSet;
 import javax.xml.transform.OutputKeys;
 
 /**
@@ -45,18 +47,20 @@ public class ws_Procesar {
      */
     @WebMethod(operationName = "consultar")
     public String consultar(@WebParam(name = "sentencia") String sentencia) {
-        
+        WebRowSet wrs = null;
         try {
             // No olvidar configurar con su bd local
             Conexion_bd con = new Conexion_bd();
             // Transformación a UTF para que se muestren los acentos
             byte[] setencia_byte = sentencia.getBytes();
             String utf = new String(setencia_byte, StandardCharsets.UTF_8);
-            return con.consultar_string(sentencia);
+            ResultSet rs = con.consultar(sentencia);
+            String res = "";
+            while(rs.next()){res=rs.getString(1);}
+            return res;
         } catch (Exception e) {
-            return "Error, " + e.toString();
+            return "Error";
         }
-
     }
 
     
