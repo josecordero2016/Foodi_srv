@@ -27,7 +27,7 @@ public class Conexion_bd {
         try {
             try {
                 Class.forName("org.postgresql.Driver");
-                connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/foodi", "postgres", "pa1998");
+                connection = DriverManager.getConnection("jdbc:postgresql://26.91.27.80:5432/foodi", "postgres", "pa1998");
                 okConnection = connection.isValid(1000);
                 System.out.println(okConnection ? "TEST OK" : "TEST FAIL");
                 ok = okConnection ? "OK" : "TEST FAIL";
