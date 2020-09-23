@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "ProductoFinal.findByIdProductoFinal", query = "SELECT p FROM ProductoFinal p WHERE p.idProductoFinal = :idProductoFinal")
     , @NamedQuery(name = "ProductoFinal.findByDescripcion", query = "SELECT p FROM ProductoFinal p WHERE p.descripcion = :descripcion")
     , @NamedQuery(name = "ProductoFinal.findByFoto", query = "SELECT p FROM ProductoFinal p WHERE p.foto = :foto")
-    , @NamedQuery(name = "ProductoFinal.findByPrecio", query = "SELECT p FROM ProductoFinal p WHERE p.precio = :precio")})
+    , @NamedQuery(name = "ProductoFinal.findByPrecio", query = "SELECT p FROM ProductoFinal p WHERE p.precio = :precio")
+    , @NamedQuery(name = "ProductoFinal.findByTipo", query = "SELECT p FROM ProductoFinal p WHERE p.tipo = :tipo")})
 public class ProductoFinal implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,6 +59,9 @@ public class ProductoFinal implements Serializable {
     @NotNull
     @Column(name = "precio")
     private BigDecimal precio;
+    @Size(max = 10)
+    @Column(name = "tipo")
+    private String tipo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProductoFinal")
     private Collection<Calificacion> calificacionCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProductoFinal")
@@ -119,6 +123,14 @@ public class ProductoFinal implements Serializable {
 
     public void setPrecio(BigDecimal precio) {
         this.precio = precio;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     @XmlTransient

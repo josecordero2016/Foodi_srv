@@ -79,8 +79,6 @@ public class Pedido implements Serializable {
     @Size(max = 25)
     @Column(name = "latitud")
     private String latitud;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "recargo")
     private BigDecimal recargo;
     @Basic(optional = false)
@@ -103,12 +101,11 @@ public class Pedido implements Serializable {
         this.idPedido = idPedido;
     }
 
-    public Pedido(Integer idPedido, Date fecha, Date hora, String direccion, BigDecimal recargo, BigDecimal valorTotal) {
+    public Pedido(Integer idPedido, Date fecha, Date hora, String direccion, BigDecimal valorTotal) {
         this.idPedido = idPedido;
         this.fecha = fecha;
         this.hora = hora;
         this.direccion = direccion;
-        this.recargo = recargo;
         this.valorTotal = valorTotal;
     }
 
