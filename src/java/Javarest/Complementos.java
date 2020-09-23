@@ -8,17 +8,17 @@ package Javarest;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author im_jo
+ * @author PC
  */
 @Entity
 @Table(name = "complementos")
@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Complementos.findAll", query = "SELECT c FROM Complementos c")
     , @NamedQuery(name = "Complementos.findByIdComplementos", query = "SELECT c FROM Complementos c WHERE c.idComplementos = :idComplementos")
+    , @NamedQuery(name = "Complementos.findByImagen", query = "SELECT c FROM Complementos c WHERE c.imagen = :imagen")
     , @NamedQuery(name = "Complementos.findByNombre", query = "SELECT c FROM Complementos c WHERE c.nombre = :nombre")})
 public class Complementos implements Serializable {
 
@@ -44,19 +45,19 @@ public class Complementos implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_complementos")
     private Integer idComplementos;
+    @Size(max = 200)
+    @Column(name = "imagen")
+    private String imagen;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "nombre")
     private String nombre;
-    @JoinTable(name = "producto_final_complementos", joinColumns = {
-        @JoinColumn(name = "id_complementos", referencedColumnName = "id_complementos")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_producto_final", referencedColumnName = "id_producto_final")})
-    @ManyToMany
-    private Collection<ProductoFinal> productoFinalCollection;
     @JoinColumn(name = "id_establecimiento", referencedColumnName = "id_establecimiento")
     @ManyToOne(optional = false)
     private Establecimiento idEstablecimiento;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idComplementos")
+    private Collection<ProductoFinalComplementos> productoFinalComplementosCollection;
 
     public Complementos() {
     }
@@ -78,6 +79,14 @@ public class Complementos implements Serializable {
         this.idComplementos = idComplementos;
     }
 
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -86,21 +95,21 @@ public class Complementos implements Serializable {
         this.nombre = nombre;
     }
 
-    @XmlTransient
-    public Collection<ProductoFinal> getProductoFinalCollection() {
-        return productoFinalCollection;
-    }
-
-    public void setProductoFinalCollection(Collection<ProductoFinal> productoFinalCollection) {
-        this.productoFinalCollection = productoFinalCollection;
-    }
-
     public Establecimiento getIdEstablecimiento() {
         return idEstablecimiento;
     }
 
     public void setIdEstablecimiento(Establecimiento idEstablecimiento) {
         this.idEstablecimiento = idEstablecimiento;
+    }
+
+    @XmlTransient
+    public Collection<ProductoFinalComplementos> getProductoFinalComplementosCollection() {
+        return productoFinalComplementosCollection;
+    }
+
+    public void setProductoFinalComplementosCollection(Collection<ProductoFinalComplementos> productoFinalComplementosCollection) {
+        this.productoFinalComplementosCollection = productoFinalComplementosCollection;
     }
 
     @Override

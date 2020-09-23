@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author im_jo
+ * @author PC
  */
 @Entity
 @Table(name = "calificacion")

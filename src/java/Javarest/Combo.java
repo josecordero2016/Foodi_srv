@@ -8,6 +8,7 @@ package Javarest;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author im_jo
+ * @author PC
  */
 @Entity
 @Table(name = "combo")
@@ -49,6 +50,8 @@ public class Combo implements Serializable {
     private String nombreCombo;
     @Column(name = "id_chef")
     private Integer idChef;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCombo")
+    private Collection<DetalleCombo> detalleComboCollection;
     @OneToMany(mappedBy = "idCombo")
     private Collection<ProductoFinal> productoFinalCollection;
 
@@ -86,6 +89,15 @@ public class Combo implements Serializable {
 
     public void setIdChef(Integer idChef) {
         this.idChef = idChef;
+    }
+
+    @XmlTransient
+    public Collection<DetalleCombo> getDetalleComboCollection() {
+        return detalleComboCollection;
+    }
+
+    public void setDetalleComboCollection(Collection<DetalleCombo> detalleComboCollection) {
+        this.detalleComboCollection = detalleComboCollection;
     }
 
     @XmlTransient

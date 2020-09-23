@@ -16,7 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -29,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author im_jo
+ * @author PC
  */
 @Entity
 @Table(name = "producto_final")
@@ -59,10 +58,12 @@ public class ProductoFinal implements Serializable {
     @NotNull
     @Column(name = "precio")
     private BigDecimal precio;
-    @ManyToMany(mappedBy = "productoFinalCollection")
-    private Collection<Complementos> complementosCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProductoFinal")
     private Collection<Calificacion> calificacionCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProductoFinal")
+    private Collection<ProductoFinalComplementos> productoFinalComplementosCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProductoFinal")
+    private Collection<DetallePedido> detallePedidoCollection;
     @JoinColumn(name = "id_combo", referencedColumnName = "id_combo")
     @ManyToOne
     private Combo idCombo;
@@ -121,21 +122,30 @@ public class ProductoFinal implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Complementos> getComplementosCollection() {
-        return complementosCollection;
-    }
-
-    public void setComplementosCollection(Collection<Complementos> complementosCollection) {
-        this.complementosCollection = complementosCollection;
-    }
-
-    @XmlTransient
     public Collection<Calificacion> getCalificacionCollection() {
         return calificacionCollection;
     }
 
     public void setCalificacionCollection(Collection<Calificacion> calificacionCollection) {
         this.calificacionCollection = calificacionCollection;
+    }
+
+    @XmlTransient
+    public Collection<ProductoFinalComplementos> getProductoFinalComplementosCollection() {
+        return productoFinalComplementosCollection;
+    }
+
+    public void setProductoFinalComplementosCollection(Collection<ProductoFinalComplementos> productoFinalComplementosCollection) {
+        this.productoFinalComplementosCollection = productoFinalComplementosCollection;
+    }
+
+    @XmlTransient
+    public Collection<DetallePedido> getDetallePedidoCollection() {
+        return detallePedidoCollection;
+    }
+
+    public void setDetallePedidoCollection(Collection<DetallePedido> detallePedidoCollection) {
+        this.detallePedidoCollection = detallePedidoCollection;
     }
 
     public Combo getIdCombo() {

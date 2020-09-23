@@ -5,7 +5,7 @@
  */
 package Javarest.service;
 
-import Javarest.TipoProducto;
+import Javarest.ProductoFinalComplementos;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,27 +25,27 @@ import javax.ws.rs.core.MediaType;
  * @author PC
  */
 @Stateless
-@Path("javarest.tipoproducto")
-public class TipoProductoFacadeREST extends AbstractFacade<TipoProducto> {
+@Path("javarest.productofinalcomplementos")
+public class ProductoFinalComplementosFacadeREST extends AbstractFacade<ProductoFinalComplementos> {
 
     @PersistenceContext(unitName = "Foodi_srvPU")
     private EntityManager em;
 
-    public TipoProductoFacadeREST() {
-        super(TipoProducto.class);
+    public ProductoFinalComplementosFacadeREST() {
+        super(ProductoFinalComplementos.class);
     }
 
     @POST
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(TipoProducto entity) {
+    public void create(ProductoFinalComplementos entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, TipoProducto entity) {
+    public void edit(@PathParam("id") Integer id, ProductoFinalComplementos entity) {
         super.edit(entity);
     }
 
@@ -58,21 +58,21 @@ public class TipoProductoFacadeREST extends AbstractFacade<TipoProducto> {
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public TipoProducto find(@PathParam("id") Integer id) {
+    public ProductoFinalComplementos find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<TipoProducto> findAll() {
+    public List<ProductoFinalComplementos> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<TipoProducto> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+    public List<ProductoFinalComplementos> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }
 

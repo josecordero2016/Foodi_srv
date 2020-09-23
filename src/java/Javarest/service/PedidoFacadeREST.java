@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author im_jo
+ * @author PC
  */
 @Stateless
 @Path("javarest.pedido")
@@ -37,14 +37,14 @@ public class PedidoFacadeREST extends AbstractFacade<Pedido> {
 
     @POST
     @Override
-    @Consumes({ MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Pedido entity) {
         super.create(entity);
     }
 
     @PUT
     @Path("{id}")
-    @Consumes({ MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Pedido entity) {
         super.edit(entity);
     }
@@ -57,21 +57,21 @@ public class PedidoFacadeREST extends AbstractFacade<Pedido> {
 
     @GET
     @Path("{id}")
-    @Produces({ MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Pedido find(@PathParam("id") Integer id) {
         return super.find(id);
     }
 
     @GET
     @Override
-    @Produces({ MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Pedido> findAll() {
         return super.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
-    @Produces({ MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<Pedido> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
         return super.findRange(new int[]{from, to});
     }

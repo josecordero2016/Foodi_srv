@@ -7,8 +7,10 @@ package Javarest;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,16 +20,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author im_jo
+ * @author PC
  */
 @Entity
 @Table(name = "pedido")
@@ -83,6 +87,8 @@ public class Pedido implements Serializable {
     @NotNull
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPedido")
+    private Collection<DetallePedido> detallePedidoCollection;
     @JoinColumn(name = "id_establecimiento", referencedColumnName = "id_establecimiento")
     @ManyToOne(optional = false)
     private Establecimiento idEstablecimiento;
@@ -176,6 +182,15 @@ public class Pedido implements Serializable {
 
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    @XmlTransient
+    public Collection<DetallePedido> getDetallePedidoCollection() {
+        return detallePedidoCollection;
+    }
+
+    public void setDetallePedidoCollection(Collection<DetallePedido> detallePedidoCollection) {
+        this.detallePedidoCollection = detallePedidoCollection;
     }
 
     public Establecimiento getIdEstablecimiento() {

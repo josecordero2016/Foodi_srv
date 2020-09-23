@@ -8,13 +8,13 @@ package Javarest;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author im_jo
+ * @author PC
  */
 @Entity
 @Table(name = "producto")
@@ -49,13 +49,15 @@ public class Producto implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "nombre")
     private String nombre;
-    @ManyToMany(mappedBy = "productoCollection")
-    private Collection<Ingredientes> ingredientesCollection;
     @JoinColumn(name = "id_chef", referencedColumnName = "id_chef")
     @ManyToOne
     private Chef idChef;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")
+    private Collection<DetalleCombo> detalleComboCollection;
     @OneToMany(mappedBy = "idProducto")
     private Collection<ProductoFinal> productoFinalCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProducto")
+    private Collection<IngredientesProducto> ingredientesProductoCollection;
 
     public Producto() {
     }
@@ -85,15 +87,6 @@ public class Producto implements Serializable {
         this.nombre = nombre;
     }
 
-    @XmlTransient
-    public Collection<Ingredientes> getIngredientesCollection() {
-        return ingredientesCollection;
-    }
-
-    public void setIngredientesCollection(Collection<Ingredientes> ingredientesCollection) {
-        this.ingredientesCollection = ingredientesCollection;
-    }
-
     public Chef getIdChef() {
         return idChef;
     }
@@ -103,12 +96,30 @@ public class Producto implements Serializable {
     }
 
     @XmlTransient
+    public Collection<DetalleCombo> getDetalleComboCollection() {
+        return detalleComboCollection;
+    }
+
+    public void setDetalleComboCollection(Collection<DetalleCombo> detalleComboCollection) {
+        this.detalleComboCollection = detalleComboCollection;
+    }
+
+    @XmlTransient
     public Collection<ProductoFinal> getProductoFinalCollection() {
         return productoFinalCollection;
     }
 
     public void setProductoFinalCollection(Collection<ProductoFinal> productoFinalCollection) {
         this.productoFinalCollection = productoFinalCollection;
+    }
+
+    @XmlTransient
+    public Collection<IngredientesProducto> getIngredientesProductoCollection() {
+        return ingredientesProductoCollection;
+    }
+
+    public void setIngredientesProductoCollection(Collection<IngredientesProducto> ingredientesProductoCollection) {
+        this.ingredientesProductoCollection = ingredientesProductoCollection;
     }
 
     @Override

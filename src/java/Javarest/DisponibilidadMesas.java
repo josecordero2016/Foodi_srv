@@ -22,14 +22,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author im_jo
+ * @author PC
  */
 @Entity
 @Table(name = "disponibilidad_mesas")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DisponibilidadMesas.findAll", query = "SELECT d FROM DisponibilidadMesas d")
-    , @NamedQuery(name = "DisponibilidadMesas.findByIdDisponible", query = "SELECT d FROM DisponibilidadMesas d WHERE d.idDisponible = :idDisponible")
+    , @NamedQuery(name = "DisponibilidadMesas.findByIdDisponibilidad", query = "SELECT d FROM DisponibilidadMesas d WHERE d.idDisponibilidad = :idDisponibilidad")
     , @NamedQuery(name = "DisponibilidadMesas.findByNumMesa", query = "SELECT d FROM DisponibilidadMesas d WHERE d.numMesa = :numMesa")
     , @NamedQuery(name = "DisponibilidadMesas.findByCantSillas", query = "SELECT d FROM DisponibilidadMesas d WHERE d.cantSillas = :cantSillas")
     , @NamedQuery(name = "DisponibilidadMesas.findByDisponibilidad", query = "SELECT d FROM DisponibilidadMesas d WHERE d.disponibilidad = :disponibilidad")})
@@ -39,8 +39,8 @@ public class DisponibilidadMesas implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "id_disponible")
-    private Integer idDisponible;
+    @Column(name = "id_disponibilidad")
+    private Integer idDisponibilidad;
     @Basic(optional = false)
     @NotNull
     @Column(name = "num_mesa")
@@ -60,23 +60,23 @@ public class DisponibilidadMesas implements Serializable {
     public DisponibilidadMesas() {
     }
 
-    public DisponibilidadMesas(Integer idDisponible) {
-        this.idDisponible = idDisponible;
+    public DisponibilidadMesas(Integer idDisponibilidad) {
+        this.idDisponibilidad = idDisponibilidad;
     }
 
-    public DisponibilidadMesas(Integer idDisponible, int numMesa, int cantSillas, boolean disponibilidad) {
-        this.idDisponible = idDisponible;
+    public DisponibilidadMesas(Integer idDisponibilidad, int numMesa, int cantSillas, boolean disponibilidad) {
+        this.idDisponibilidad = idDisponibilidad;
         this.numMesa = numMesa;
         this.cantSillas = cantSillas;
         this.disponibilidad = disponibilidad;
     }
 
-    public Integer getIdDisponible() {
-        return idDisponible;
+    public Integer getIdDisponibilidad() {
+        return idDisponibilidad;
     }
 
-    public void setIdDisponible(Integer idDisponible) {
-        this.idDisponible = idDisponible;
+    public void setIdDisponibilidad(Integer idDisponibilidad) {
+        this.idDisponibilidad = idDisponibilidad;
     }
 
     public int getNumMesa() {
@@ -114,7 +114,7 @@ public class DisponibilidadMesas implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idDisponible != null ? idDisponible.hashCode() : 0);
+        hash += (idDisponibilidad != null ? idDisponibilidad.hashCode() : 0);
         return hash;
     }
 
@@ -125,7 +125,7 @@ public class DisponibilidadMesas implements Serializable {
             return false;
         }
         DisponibilidadMesas other = (DisponibilidadMesas) object;
-        if ((this.idDisponible == null && other.idDisponible != null) || (this.idDisponible != null && !this.idDisponible.equals(other.idDisponible))) {
+        if ((this.idDisponibilidad == null && other.idDisponibilidad != null) || (this.idDisponibilidad != null && !this.idDisponibilidad.equals(other.idDisponibilidad))) {
             return false;
         }
         return true;
@@ -133,7 +133,7 @@ public class DisponibilidadMesas implements Serializable {
 
     @Override
     public String toString() {
-        return "Javarest.DisponibilidadMesas[ idDisponible=" + idDisponible + " ]";
+        return "Javarest.DisponibilidadMesas[ idDisponibilidad=" + idDisponibilidad + " ]";
     }
     
 }

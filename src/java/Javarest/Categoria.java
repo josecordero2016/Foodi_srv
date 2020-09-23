@@ -14,9 +14,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -27,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author im_jo
+ * @author PC
  */
 @Entity
 @Table(name = "categoria")
@@ -47,11 +44,8 @@ public class Categoria implements Serializable {
     @Size(max = 30)
     @Column(name = "nombre")
     private String nombre;
-    @JoinTable(name = "categoria_establecimiento", joinColumns = {
-        @JoinColumn(name = "id_categoria", referencedColumnName = "id_categoria")}, inverseJoinColumns = {
-        @JoinColumn(name = "id_establecimiento", referencedColumnName = "id_establecimiento")})
-    @ManyToMany
-    private Collection<Establecimiento> establecimientoCollection;
+    @OneToMany(mappedBy = "idCategoria")
+    private Collection<CategoriaEstablecimiento> categoriaEstablecimientoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCategoria")
     private Collection<TipoProducto> tipoProductoCollection;
 
@@ -79,12 +73,12 @@ public class Categoria implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Establecimiento> getEstablecimientoCollection() {
-        return establecimientoCollection;
+    public Collection<CategoriaEstablecimiento> getCategoriaEstablecimientoCollection() {
+        return categoriaEstablecimientoCollection;
     }
 
-    public void setEstablecimientoCollection(Collection<Establecimiento> establecimientoCollection) {
-        this.establecimientoCollection = establecimientoCollection;
+    public void setCategoriaEstablecimientoCollection(Collection<CategoriaEstablecimiento> categoriaEstablecimientoCollection) {
+        this.categoriaEstablecimientoCollection = categoriaEstablecimientoCollection;
     }
 
     @XmlTransient

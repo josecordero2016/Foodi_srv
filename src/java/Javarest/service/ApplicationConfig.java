@@ -30,18 +30,23 @@ public class ApplicationConfig extends Application {
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(Javarest.service.CalificacionFacadeREST.class);
+        resources.add(Javarest.service.CategoriaEstablecimientoFacadeREST.class);
         resources.add(Javarest.service.CategoriaFacadeREST.class);
         resources.add(Javarest.service.ChefFacadeREST.class);
         resources.add(Javarest.service.ComboFacadeREST.class);
         resources.add(Javarest.service.ComplementosFacadeREST.class);
+        resources.add(Javarest.service.DetalleComboFacadeREST.class);
+        resources.add(Javarest.service.DetallePedidoFacadeREST.class);
         resources.add(Javarest.service.DisponibilidadMesasFacadeREST.class);
         resources.add(Javarest.service.EstablecimientoFacadeREST.class);
         resources.add(Javarest.service.HistorialFacadeREST.class);
         resources.add(Javarest.service.HorarioAtencionFacadeREST.class);
         resources.add(Javarest.service.IngredientesFacadeREST.class);
+        resources.add(Javarest.service.IngredientesProductoFacadeREST.class);
         resources.add(Javarest.service.PedidoFacadeREST.class);
         resources.add(Javarest.service.PersonaFacadeREST.class);
         resources.add(Javarest.service.ProductoFacadeREST.class);
+        resources.add(Javarest.service.ProductoFinalComplementosFacadeREST.class);
         resources.add(Javarest.service.ProductoFinalFacadeREST.class);
         resources.add(Javarest.service.PruebaFacadeREST.class);
         resources.add(Javarest.service.TipoProductoFacadeREST.class);

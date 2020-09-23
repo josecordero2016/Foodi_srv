@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -28,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author im_jo
+ * @author PC
  */
 @Entity
 @Table(name = "establecimiento")
@@ -45,6 +44,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Establecimiento.findByLongitud", query = "SELECT e FROM Establecimiento e WHERE e.longitud = :longitud")
     , @NamedQuery(name = "Establecimiento.findByVerificado", query = "SELECT e FROM Establecimiento e WHERE e.verificado = :verificado")
     , @NamedQuery(name = "Establecimiento.findByCalificacion", query = "SELECT e FROM Establecimiento e WHERE e.calificacion = :calificacion")
+    , @NamedQuery(name = "Establecimiento.findByReglas", query = "SELECT e FROM Establecimiento e WHERE e.reglas = :reglas")
     , @NamedQuery(name = "Establecimiento.findByFoto", query = "SELECT e FROM Establecimiento e WHERE e.foto = :foto")})
 public class Establecimiento implements Serializable {
 
@@ -94,10 +94,11 @@ public class Establecimiento implements Serializable {
     @Column(name = "calificacion")
     private int calificacion;
     @Size(max = 150)
+    @Column(name = "reglas")
+    private String reglas;
+    @Size(max = 150)
     @Column(name = "foto")
     private String foto;
-    @ManyToMany(mappedBy = "establecimientoCollection")
-    private Collection<Categoria> categoriaCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstablecimiento")
     private Collection<Ingredientes> ingredientesCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstablecimiento")
@@ -111,6 +112,8 @@ public class Establecimiento implements Serializable {
     private Collection<HorarioAtencion> horarioAtencionCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstablecimiento")
     private Collection<DisponibilidadMesas> disponibilidadMesasCollection;
+    @OneToMany(mappedBy = "idEstablecimiento")
+    private Collection<CategoriaEstablecimiento> categoriaEstablecimientoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstablecimiento")
     private Collection<Pedido> pedidoCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstablecimiento")
@@ -214,21 +217,20 @@ public class Establecimiento implements Serializable {
         this.calificacion = calificacion;
     }
 
+    public String getReglas() {
+        return reglas;
+    }
+
+    public void setReglas(String reglas) {
+        this.reglas = reglas;
+    }
+
     public String getFoto() {
         return foto;
     }
 
     public void setFoto(String foto) {
         this.foto = foto;
-    }
-
-    @XmlTransient
-    public Collection<Categoria> getCategoriaCollection() {
-        return categoriaCollection;
-    }
-
-    public void setCategoriaCollection(Collection<Categoria> categoriaCollection) {
-        this.categoriaCollection = categoriaCollection;
     }
 
     @XmlTransient
@@ -282,6 +284,15 @@ public class Establecimiento implements Serializable {
 
     public void setDisponibilidadMesasCollection(Collection<DisponibilidadMesas> disponibilidadMesasCollection) {
         this.disponibilidadMesasCollection = disponibilidadMesasCollection;
+    }
+
+    @XmlTransient
+    public Collection<CategoriaEstablecimiento> getCategoriaEstablecimientoCollection() {
+        return categoriaEstablecimientoCollection;
+    }
+
+    public void setCategoriaEstablecimientoCollection(Collection<CategoriaEstablecimiento> categoriaEstablecimientoCollection) {
+        this.categoriaEstablecimientoCollection = categoriaEstablecimientoCollection;
     }
 
     @XmlTransient
