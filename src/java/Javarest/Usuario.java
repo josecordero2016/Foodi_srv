@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author PC
+ * @author im_jo
  */
 @Entity
 @Table(name = "usuario")
@@ -62,11 +62,7 @@ public class Usuario implements Serializable {
     @Column(name = "tipo")
     private String tipo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private Collection<Calificacion> calificacionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Collection<Establecimiento> establecimientoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
-    private Collection<Historial> historialCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
     private Collection<Pedido> pedidoCollection;
     @JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
@@ -120,30 +116,12 @@ public class Usuario implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Calificacion> getCalificacionCollection() {
-        return calificacionCollection;
-    }
-
-    public void setCalificacionCollection(Collection<Calificacion> calificacionCollection) {
-        this.calificacionCollection = calificacionCollection;
-    }
-
-    @XmlTransient
     public Collection<Establecimiento> getEstablecimientoCollection() {
         return establecimientoCollection;
     }
 
     public void setEstablecimientoCollection(Collection<Establecimiento> establecimientoCollection) {
         this.establecimientoCollection = establecimientoCollection;
-    }
-
-    @XmlTransient
-    public Collection<Historial> getHistorialCollection() {
-        return historialCollection;
-    }
-
-    public void setHistorialCollection(Collection<Historial> historialCollection) {
-        this.historialCollection = historialCollection;
     }
 
     @XmlTransient

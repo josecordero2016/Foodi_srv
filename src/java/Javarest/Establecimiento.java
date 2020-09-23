@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author PC
+ * @author im_jo
  */
 @Entity
 @Table(name = "establecimiento")
@@ -99,25 +99,11 @@ public class Establecimiento implements Serializable {
     @Size(max = 150)
     @Column(name = "foto")
     private String foto;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstablecimiento")
-    private Collection<Ingredientes> ingredientesCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstablecimiento")
-    private Collection<Complementos> complementosCollection;
     @JoinColumn(name = "id_usuario", referencedColumnName = "id_usuario")
     @ManyToOne(optional = false)
     private Usuario idUsuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstablecimiento")
-    private Collection<Chef> chefCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstablecimiento")
-    private Collection<HorarioAtencion> horarioAtencionCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstablecimiento")
-    private Collection<DisponibilidadMesas> disponibilidadMesasCollection;
-    @OneToMany(mappedBy = "idEstablecimiento")
-    private Collection<CategoriaEstablecimiento> categoriaEstablecimientoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstablecimiento")
     private Collection<Pedido> pedidoCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEstablecimiento")
-    private Collection<ProductoFinal> productoFinalCollection;
 
     public Establecimiento() {
     }
@@ -233,24 +219,6 @@ public class Establecimiento implements Serializable {
         this.foto = foto;
     }
 
-    @XmlTransient
-    public Collection<Ingredientes> getIngredientesCollection() {
-        return ingredientesCollection;
-    }
-
-    public void setIngredientesCollection(Collection<Ingredientes> ingredientesCollection) {
-        this.ingredientesCollection = ingredientesCollection;
-    }
-
-    @XmlTransient
-    public Collection<Complementos> getComplementosCollection() {
-        return complementosCollection;
-    }
-
-    public void setComplementosCollection(Collection<Complementos> complementosCollection) {
-        this.complementosCollection = complementosCollection;
-    }
-
     public Usuario getIdUsuario() {
         return idUsuario;
     }
@@ -260,57 +228,12 @@ public class Establecimiento implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Chef> getChefCollection() {
-        return chefCollection;
-    }
-
-    public void setChefCollection(Collection<Chef> chefCollection) {
-        this.chefCollection = chefCollection;
-    }
-
-    @XmlTransient
-    public Collection<HorarioAtencion> getHorarioAtencionCollection() {
-        return horarioAtencionCollection;
-    }
-
-    public void setHorarioAtencionCollection(Collection<HorarioAtencion> horarioAtencionCollection) {
-        this.horarioAtencionCollection = horarioAtencionCollection;
-    }
-
-    @XmlTransient
-    public Collection<DisponibilidadMesas> getDisponibilidadMesasCollection() {
-        return disponibilidadMesasCollection;
-    }
-
-    public void setDisponibilidadMesasCollection(Collection<DisponibilidadMesas> disponibilidadMesasCollection) {
-        this.disponibilidadMesasCollection = disponibilidadMesasCollection;
-    }
-
-    @XmlTransient
-    public Collection<CategoriaEstablecimiento> getCategoriaEstablecimientoCollection() {
-        return categoriaEstablecimientoCollection;
-    }
-
-    public void setCategoriaEstablecimientoCollection(Collection<CategoriaEstablecimiento> categoriaEstablecimientoCollection) {
-        this.categoriaEstablecimientoCollection = categoriaEstablecimientoCollection;
-    }
-
-    @XmlTransient
     public Collection<Pedido> getPedidoCollection() {
         return pedidoCollection;
     }
 
     public void setPedidoCollection(Collection<Pedido> pedidoCollection) {
         this.pedidoCollection = pedidoCollection;
-    }
-
-    @XmlTransient
-    public Collection<ProductoFinal> getProductoFinalCollection() {
-        return productoFinalCollection;
-    }
-
-    public void setProductoFinalCollection(Collection<ProductoFinal> productoFinalCollection) {
-        this.productoFinalCollection = productoFinalCollection;
     }
 
     @Override

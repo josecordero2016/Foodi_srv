@@ -7,10 +7,8 @@ package Javarest;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,18 +18,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author PC
+ * @author im_jo
  */
 @Entity
 @Table(name = "pedido")
@@ -46,7 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Pedido.findByLongitud", query = "SELECT p FROM Pedido p WHERE p.longitud = :longitud")
     , @NamedQuery(name = "Pedido.findByLatitud", query = "SELECT p FROM Pedido p WHERE p.latitud = :latitud")
     , @NamedQuery(name = "Pedido.findByRecargo", query = "SELECT p FROM Pedido p WHERE p.recargo = :recargo")
-    , @NamedQuery(name = "Pedido.findByValorTotal", query = "SELECT p FROM Pedido p WHERE p.valorTotal = :valorTotal")})
+    , @NamedQuery(name = "Pedido.findByValorTotal", query = "SELECT p FROM Pedido p WHERE p.valorTotal = :valorTotal")
+    , @NamedQuery(name = "Pedido.findByEstado", query = "SELECT p FROM Pedido p WHERE p.estado = :estado")})
 public class Pedido implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -85,8 +82,9 @@ public class Pedido implements Serializable {
     @NotNull
     @Column(name = "valor_total")
     private BigDecimal valorTotal;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPedido")
-    private Collection<DetallePedido> detallePedidoCollection;
+    @Size(max = 15)
+    @Column(name = "estado")
+    private String estado;
     @JoinColumn(name = "id_establecimiento", referencedColumnName = "id_establecimiento")
     @ManyToOne(optional = false)
     private Establecimiento idEstablecimiento;
@@ -181,13 +179,12 @@ public class Pedido implements Serializable {
         this.valorTotal = valorTotal;
     }
 
-    @XmlTransient
-    public Collection<DetallePedido> getDetallePedidoCollection() {
-        return detallePedidoCollection;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setDetallePedidoCollection(Collection<DetallePedido> detallePedidoCollection) {
-        this.detallePedidoCollection = detallePedidoCollection;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public Establecimiento getIdEstablecimiento() {

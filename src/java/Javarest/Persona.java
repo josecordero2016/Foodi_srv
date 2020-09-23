@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author PC
+ * @author im_jo
  */
 @Entity
 @Table(name = "persona")
@@ -89,8 +89,6 @@ public class Persona implements Serializable {
     @Size(max = 150)
     @Column(name = "foto")
     private String foto;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
-    private Collection<Chef> chefCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPersona")
     private Collection<Usuario> usuarioCollection;
 
@@ -189,15 +187,6 @@ public class Persona implements Serializable {
 
     public void setFoto(String foto) {
         this.foto = foto;
-    }
-
-    @XmlTransient
-    public Collection<Chef> getChefCollection() {
-        return chefCollection;
-    }
-
-    public void setChefCollection(Collection<Chef> chefCollection) {
-        this.chefCollection = chefCollection;
     }
 
     @XmlTransient
