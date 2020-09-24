@@ -54,6 +54,7 @@ public class ApplicationConfig extends Application {
         resources.add(Javarest.service.VwbuscarFacadeREST.class);
         resources.add(Javarest.service.VwdetalledepedidosFacadeREST.class);
         resources.add(Javarest.service.VwpedidospendientesFacadeREST.class);
+        resources.add(Javarest.service.VwprincipalFacadeREST.class);
     }
     
 }
