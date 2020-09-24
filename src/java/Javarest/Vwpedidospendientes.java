@@ -40,13 +40,13 @@ public class Vwpedidospendientes implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Column(name = "id_pedido")
+    @Id
     private Integer idPedido;
     @Size(max = 50)
     @Column(name = "nombres")
     private String nombres;
     @Size(max = 2147483647)
     @Column(name = "id_establecimiento")
-    @Id
     private String idEstablecimiento;
     @Column(name = "fecha")
     @Temporal(TemporalType.DATE)
